@@ -2,6 +2,8 @@ const billinModel=require("../model/billing")
 // const { PDFDocument } = require('pdf-lib');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+require('dotenv').config();
+const passOutlook = process.env.PASSWORD;
 const PDFDocument = require('pdfkit');
 // const nodemailer = require('nodemailer');
 const createBill=async(req,res)=>{
@@ -143,13 +145,13 @@ try {
                    const transporter = nodemailer.createTransport({
                      service: 'outlook',
                      auth: {
-                       user: 'myoutlook@outlook.com',
-                       pass: 'myoutlookpassword',
+                       user: 'vinti9876@outlook.com',
+                       pass:passOutlook,
                      },
                    });
                    
                    const mailOptions = {
-                     from: 'vintiray71@outlook.com',
+                     from: 'vinti9876@outlook.com',
                      to: email,
                      subject: 'Supermarket Invoice',
                      text: 'Please find your invoice attached.',

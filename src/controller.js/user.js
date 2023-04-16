@@ -6,6 +6,7 @@ const bcrypt=require("bcrypt")
  const saltRounds = 10;     
 
 
+
 //__________________________ Validations : Email  ___________________________________________
 
 const isValidEmail = function (email) {

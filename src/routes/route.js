@@ -2,11 +2,11 @@ const express=require("express")
 const router=express.Router()
 const {createData,login,getUser,updateOrg,updatePassword}=require("../controller.js/user")
 const {createBill,getData}=require("../controller.js/billingController")
-const{createInventory,getInventory}=require("../controller.js/inventory")
+const {createInventory,getInventory}=require("../controller.js/inventory")
 const {createEmployee,getEmployee}=require("../controller.js/employee")
 const {auth}=require("../middleware/auth")
 const {getSaleData}=require("../controller.js/saleController")
-const {generatePaytmChecksum}=require("../paytm/paytm")
+
 const {forgetPassword,updateForgetPassword}=require("../controller.js/passwordreset")
 
 router.post("/createuser",createData)
@@ -28,7 +28,7 @@ router.get("/getUser",auth,getUser)
 router.put("/updatePassword",auth,updatePassword)
 
 //paytm
-router.post("/paytm",generatePaytmChecksum)
+
 
 
 
