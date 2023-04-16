@@ -24,7 +24,7 @@ const isValidPassword = function (password) {
 }; 
 
 const createData = async function (req, res) {
-// try {
+try {
 	  let data = req.body;
 
 	  if(!data) return res.status(400).send({status:false, message: "body is mandatory" });
@@ -42,7 +42,7 @@ const createData = async function (req, res) {
 	  if (!email) return res.status(400).send({status:false, message: " email is required " });
 	  if(!isValidEmail(email))  return res.status(400).send({status:false, message:"invalid email"})
 	  const isEmailUnique= await userModel.findOne({email:email})
-	  if(isEmailUnique)   return res.status(400).send({status:false, message:"email is already used,please use another email"})
+	  if(isEmailUnique)   return res.status(400).send({status:false, message:"email is already used"})
 
 
 	  //password
@@ -62,16 +62,16 @@ const createData = async function (req, res) {
 	
 	  const createUser = await userModel.create(data);
 	  return res.status(201).send({status:true,message: "User created Successfully",data:createUser})
-// } catch (error) {
-// 	return res.status(500).send({status:false,message:error.message})
-// }
+} catch (error) {
+	return res.status(500).send({status:false,message:error.message})
+}
 }
 
 
 
 
 const login=async function(req,res) {
-// try {
+try {
 	  let email=req.body.email
 	  let password=req.body.password
 	  console.log(email);
@@ -98,61 +98,73 @@ const login=async function(req,res) {
 	  res.header("token",createToken)
 	
 	  res.status(201).send({status:true, message:createToken})
-// } catch (error) {
-// 	return res.status(500).send({status:false, message:error.message})
-// }
+} catch (error) {
+	return res.status(500).send({status:false, message:error.message})
+}
 } 
 
 const getUser=async(req,res)=>{
-    let organisationId=req.decode.id
-	const  findData=await userModel.findById(organisationId)
-	const FindStaff=await employeeModel.find({organisationId:organisationId})
-	let showData={
-		name:findData.organisationName,
-		country:findData.country,
-		state:findData.state,
-		city:findData.city,
-		pincode:findData.pincode,
-		email:findData.email,
-		numberOfEmployee:FindStaff.length,
-		profileImage:findData.profileImage
-
-	}
-	res.status(201).send({status:true, message:showData})
+try {
+	    let organisationId=req.decode.id
+		const  findData=await userModel.findById(organisationId)
+		const FindStaff=await employeeModel.find({organisationId:organisationId})
+		let showData={
+			name:findData.organisationName,
+			country:findData.country,
+			state:findData.state,
+			city:findData.city,
+			pincode:findData.pincode,
+			email:findData.email,
+			numberOfEmployee:FindStaff.length,
+			profileImage:findData.profileImage
+	
+		}
+		res.status(201).send({status:true, message:showData})
+} catch (error) {
+	return res.status(500).send({status:false, message:error.message})
+}
 
 }
 
 const updateOrg=async(req,res)=>{
-	let data=req.body
-	let organisationId=req.decode.id
-    let files = req.files // Get the file to upload
-
-    if (files && files.length > 0) {
-        let uploadFileUrl = await uploadFile(files[0])
-        data.profileImage = uploadFileUrl
-    }
-	if(data.email){
-		const isEmailUnique= await userModel.findOne({email:data.email})
-		if(isEmailUnique&&organisationId!=isEmailUnique._id)   return res.status(400).send({status:false, message:"email is already used,please use another email"})
-	}
-
-		await userModel.findByIdAndUpdate(organisationId,data)
-
+try {
+		let data=req.body
+		let organisationId=req.decode.id
+	    let files = req.files // Get the file to upload
 	
-	return res.status(201).send({status:true, message:"data update successfully"})
+	    if (files && files.length > 0) {
+	        let uploadFileUrl = await uploadFile(files[0])
+	        data.profileImage = uploadFileUrl
+	    }
+		if(data.email){
+			const isEmailUnique= await userModel.findOne({email:data.email})
+			if(isEmailUnique&&organisationId!=isEmailUnique._id)   return res.status(400).send({status:false, message:"email is already used,please use another email"})
+		}
+	
+			await userModel.findByIdAndUpdate(organisationId,data)
+	
+		
+		return res.status(201).send({status:true, message:"data update successfully"})
+} catch (error) {
+	return res.status(500).send({status:false, message:error.message})
+}
 }
 const updatePassword=async(req,res)=>{
-	let data=req.body
-	let organisationId=req.decode.id
-	const oldData=await userModel.findById(organisationId)
-	const decodePassword = await bcrypt.compare(data.oldPassword, oldData.password)
-	if(!decodePassword) return res.status(400).send({ status: false, message: "password not matched" })
-   
-	let encryptPassword =await bcrypt.hash(data.password, saltRounds)
-        
-	data.password=encryptPassword
-	await userModel.findByIdAndUpdate(organisationId,data.password)
-	return res.status(201).send({status:true, message:"password updated successfully"})
+	try {
+		let data=req.body
+		let organisationId=req.decode.id
+		const oldData=await userModel.findById(organisationId)
+		const decodePassword = await bcrypt.compare(data.oldPassword, oldData.password)
+		if(!decodePassword) return res.status(400).send({ status: false, message: "password not matched" })
+	   
+		let encryptPassword =await bcrypt.hash(data.password, saltRounds)
+	        
+		data.password=encryptPassword
+		await userModel.findByIdAndUpdate(organisationId,data.password)
+		return res.status(201).send({status:true, message:"password updated successfully"})
+	} catch (error) {
+		return res.status(500).send({status:false, message:error.message})
+	}
 }
 
 
