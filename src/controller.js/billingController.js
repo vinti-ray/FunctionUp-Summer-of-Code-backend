@@ -9,8 +9,7 @@ const PDFDocument = require('pdfkit');
 const createBill=async(req,res)=>{
 try {
                 let data=req.body 
-               //  console.log(data) 
-               //  console.log(req.files);
+
                 let {customerName,email,number,item,organisationId,paymentMethod,total,netTotal}=data
                 item=JSON.parse(item)
                 if(!customerName) return res.status(400).send({status:false,message:"please provide customer name"})
@@ -22,40 +21,7 @@ try {
                 
                 if(!paymentMethod) return res.status(400).send({status:false,message:"please provide paymentMethod"})
                 
-               // for(let i=0;i<item.length.length;i++){
-               //    if(typeof item[i].MRP!=="number") return res.status(400).send({status:false,message:"please provide mrp number in number format"})
-               //    if(typeof item[i].quantity!=="number") return res.status(400).send({status:false,message:"please provide quantity in number format"})
-               //    if(typeof item[i].discountedPrice!=="number") return res.status(400).send({status:false,message:"please provide discount in number format"})
-               // }
-                
-   
-               //  //subtracting discount from main value
-               //  let discountAmount=[]
-               //  for(let i=0;i<MRP.length;i++){
-               //   let x= MRP[i]-(MRP[i]*(discountedPrice[i]/100))
-                
-               //   discountAmount[i]=x
-               //  }
-               //  //value of each item
-               // let value=[]
-               //   for(let i=0;i<item.length;i++){
-               //     let x=item[i]
-               //     value[i]=quantity[i]*discountAmount[i]
-               //   }
-   
-               //    data.value=value
-               //    //total price
-               //    let total=0
-               //    for(let i=0;i<value.length;i++){
-               //      total+=value[i]
-               //    }
-               //    data.total=total
-               // //calculatin gst
-               // // 1,000+ (1,000X(18/100)) = 1,000+180 = Rs. 1,180
-               //     let GST=18
-               //     data.GST=GST
-               //     let amountToPay=total+(total*(GST/100))
-               //     data.amountToPay=amountToPay
+
    
    
    
@@ -99,13 +65,7 @@ try {
                      .text('Items')
                      .moveDown();
                    
-                  //  doc
-                  //    .fontSize(10)
-                  //    .text('Name', { width: 200, bold: true })
-                  //    .text('Price', { width: 100, bold: true })
-                  //    .text('Quantity', { width: 100, bold: true })
-                  //    // .moveDown();
-                   
+
                    invoiceData.items.forEach(item => {
                      doc
                        .fontSize(14)

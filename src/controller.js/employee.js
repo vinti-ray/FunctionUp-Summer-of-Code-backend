@@ -43,13 +43,17 @@ try {
 
 
 const getEmployee=async(req,res)=>{
-let organisationId=req.decode.id
-
-  const findData=await employeeModel.find({organisationId:organisationId}).lean()
-
-  if(!findData)  return res.status(500).send({status:false, message:"no data available"})
-
-  return res.status(201).send({status:true,message:findData})
+try {
+  let organisationId=req.decode.id
+  
+    const findData=await employeeModel.find({organisationId:organisationId}).lean()
+  
+    if(!findData)  return res.status(500).send({status:false, message:"no data available"})
+  
+    return res.status(201).send({status:true,message:findData})
+} catch (error) {
+  return res.status(500).send({status:false, message:error.message})
+}
 
 }
 module.exports={createEmployee,getEmployee}
