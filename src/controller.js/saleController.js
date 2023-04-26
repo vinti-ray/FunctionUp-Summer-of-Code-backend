@@ -1,14 +1,6 @@
 const saleModel=require("../model/totalSaleModel")
 const billinModel=require("../model/billing")
-// const { find } = require("../model/user")
-// const { json } = require("express")
-// //    For using datatable first create API which return all bill details which belongs to this organization
-//    a). Total sale ( total sale day wise)
-// b). Customer Name 
-// c). Customer Number 
-// d). Bill amount 
-// e). Paid amount
-// f). Generated date
+
 const getSaleData=async(req,res)=>{
   try {
       let organisationId=req.decode.id
@@ -74,5 +66,4 @@ const getSaleData=async(req,res)=>{
 
 }
 module.exports={getSaleData}
-//findData is an array  inside that item is an array  collect all the customer with same mobile no and name
 
