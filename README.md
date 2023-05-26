@@ -1,17 +1,25 @@
 
-Super Market Billing Project
+## Super Market Billing Project
 ----------- Requirement 
 
 
 1). Create a Registration page
 Input Field required
+
 a).Organisations Name
+
 b).Email
+
 c)Password
+
 d)confirm Password
+
 e)Country
+
 f).State
+
 g)City
+
 h)Pincode
     Functionality Required 
 a)Email should be unique 
