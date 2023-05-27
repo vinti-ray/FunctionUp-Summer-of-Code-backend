@@ -40,7 +40,7 @@ b).After login Token should be generated and Stored in localStorage
     a). Customer Name 
     b). Customer Number 
      
-    c). payment Option ( Cash / card / Online )
+   c). payment Option ( Cash / card / Online )
     d).    Item                     Quantity           MRP              Discounted Price             Value 
     Ex.    Bread                       2                40                     37.5                  75.00
     e). CGST ( it will show only not editable )
@@ -118,12 +118,12 @@ d). In update password page
     a). Email
     b). Generate OTP button 
 
-    Functionality required 
+   Functionality required 
     a). Once you click on generate otp button - create an otp and send it in email and redirect the page where there will be option of enter otp once you enter otp and is valid then after  click on submit it should navigate to update password page
 
-        a). Password 
-        b). Confirm Password 
-        c). Submit button
+  a). Password 
+  b). Confirm Password 
+  c). Submit button
        
 
 
